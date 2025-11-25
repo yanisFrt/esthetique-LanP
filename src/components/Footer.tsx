@@ -7,10 +7,18 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div>
-            <h3 className="font-serif text-2xl font-light tracking-wider mb-4">
+            {/* <h3 className="font-serif text-2xl font-light tracking-wider mb-4">
               SIGNATŪR
-            </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            </h3> */}
+            <div className="flex flex-col">
+              <span className="font-serif text-3xl font-light tracking-wider">
+                SIGNATŪR
+              </span>
+              <span className="font-serif text-s font-light tracking-[0.3em] text-muted-foreground -mt-1">
+                ESTHELYS
+              </span>
+            </div>
+            <p className="text-sm text-muted-foreground leading-relaxed mt-6">
               Révéler votre beauté naturelle avec précision et douceur.
             </p>
           </div>
@@ -59,7 +67,7 @@ const Footer = () => {
             <h4 className="font-serif text-lg font-light mb-4">Suivez-nous</h4>
             <div className="flex gap-4 mb-4">
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/browlux.studio?igsh=cjJsa2Z2ZDcxand6"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 border border-border rounded-full hover:bg-primary hover:border-primary transition-colors"

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Phone, Instagram, MessageCircle } from "lucide-react";
+import { Mail, Instagram, Video } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
@@ -16,7 +16,7 @@ const Contact = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Basic validation
     if (!formData.name || !formData.phone || !formData.message) {
       toast({
@@ -55,8 +55,8 @@ const Contact = () => {
             Contactez-nous
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
-            Une question ? Un rendez-vous ? N'hésitez pas à nous contacter. 
-            Nous serons ravis de vous accompagner.
+            Une question ? Un rendez-vous ? N'hésitez pas à nous contacter. Nous
+            serons ravis de vous accompagner.
           </p>
         </div>
 
@@ -71,7 +71,10 @@ const Contact = () => {
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-light mb-2">
+                  <label
+                    htmlFor="name"
+                    className="block text-sm font-light mb-2"
+                  >
                     Nom *
                   </label>
                   <Input
@@ -85,7 +88,10 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="phone" className="block text-sm font-light mb-2">
+                  <label
+                    htmlFor="phone"
+                    className="block text-sm font-light mb-2"
+                  >
                     Téléphone *
                   </label>
                   <Input
@@ -100,7 +106,10 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-sm font-light mb-2">
+                  <label
+                    htmlFor="message"
+                    className="block text-sm font-light mb-2"
+                  >
                     Message *
                   </label>
                   <Textarea
@@ -114,7 +123,10 @@ const Contact = () => {
                   />
                 </div>
 
-                <Button type="submit" className="w-full bg-foreground hover:bg-foreground/90 text-background font-light">
+                <Button
+                  type="submit"
+                  className="w-full bg-foreground hover:bg-foreground/90 text-background font-light"
+                >
                   Envoyer le Message
                 </Button>
               </form>
@@ -131,10 +143,15 @@ const Contact = () => {
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <Phone className="w-6 h-6 text-primary mt-1" />
+                  <Mail className="w-6 h-6 text-primary mt-1" />
                   <div>
-                    <h3 className="font-light mb-1">Téléphone</h3>
-                    <p className="text-muted-foreground">À renseigner</p>
+                    <h3 className="font-light mb-1">Email</h3>
+                    <a
+                      href="mailto:contact@signatur.com"
+                      className="text-muted-foreground hover:text-primary transition-colors"
+                    >
+                      contact@esthelys.com
+                    </a>
                   </div>
                 </div>
 
@@ -143,27 +160,27 @@ const Contact = () => {
                   <div>
                     <h3 className="font-light mb-1">Instagram</h3>
                     <a
-                      href="https://instagram.com"
+                      href="https://www.instagram.com/browlux.studio?igsh=cjJsa2Z2ZDcxand6"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >
-                      @institut_signatur
+                      @browlux.studio
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <MessageCircle className="w-6 h-6 text-primary mt-1" />
+                  <Video className="w-6 h-6 text-primary mt-1" />
                   <div>
-                    <h3 className="font-light mb-1">WhatsApp</h3>
+                    <h3 className="font-light mb-1">TikTok</h3>
                     <a
-                      href="https://wa.me/"
+                      href="https://tiktok.com/@institut_signatur"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >
-                      Contactez-nous sur WhatsApp
+                      @browluxstudio1
                     </a>
                   </div>
                 </div>
@@ -179,7 +196,7 @@ const Contact = () => {
                   Les horaires seront communiqués prochainement.
                 </p>
                 {/* <p className="text-sm text-muted-foreground"> */}
-                  {/* * Prise de rendez-vous en ligne bientôt disponible via Planity */}
+                {/* * Prise de rendez-vous en ligne bientôt disponible via Planity */}
                 {/* </p> */}
               </CardContent>
             </Card>

@@ -22,66 +22,67 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex h-20 items-center justify-between">
           <Link to="/" className="flex items-center">
-            <span className="font-serif text-3xl font-light tracking-wider">
-              SIGNATŪR
-            </span>
+            <div className="flex flex-col">
+              <span className="font-serif text-3xl font-light tracking-wider">
+                SIGNATŪR
+              </span>
+              <span className="font-serif text-s font-light tracking-[0.3em] text-muted-foreground -mt-1">
+                ESTHELYS
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
-           <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-            //   <Link
-            //     key={link.to}
-            //     to={link.to}
-            //     className={`font-light text-sm tracking-wide transition-colors hover:text-primary ${
-            //       isActive(link.to)
-            //         ? "text-foreground border-b-2 border-primary pb-1"
-            //         : "text-muted-foreground"
-            //     }`}
-            //   >
-            //     {link.label}
-            //   </Link>
-//             <Link
-//   key={link.to}
-//   to={link.to}
-//   className={`
-//     relative font-light text-sm tracking-wide transition-colors 
-//     ${isActive(link.to) ? "text-foreground" : "text-muted-foreground"}
-//     group
-//   `}
-// >
-//   {link.label}
-//   <span
-//     className="absolute left-0 -bottom-0.5 h-[2px] w-0 bg-primary transition-all duration-300 group-hover:w-full"
-//   ></span>
-// </Link>
+              //   <Link
+              //     key={link.to}
+              //     to={link.to}
+              //     className={`font-light text-sm tracking-wide transition-colors hover:text-primary ${
+              //       isActive(link.to)
+              //         ? "text-foreground border-b-2 border-primary pb-1"
+              //         : "text-muted-foreground"
+              //     }`}
+              //   >
+              //     {link.label}
+              //   </Link>
+              //             <Link
+              //   key={link.to}
+              //   to={link.to}
+              //   className={`
+              //     relative font-light text-sm tracking-wide transition-colors
+              //     ${isActive(link.to) ? "text-foreground" : "text-muted-foreground"}
+              //     group
+              //   `}
+              // >
+              //   {link.label}
+              //   <span
+              //     className="absolute left-0 -bottom-0.5 h-[2px] w-0 bg-primary transition-all duration-300 group-hover:w-full"
+              //   ></span>
+              // </Link>
 
-<Link
-  key={link.to}
-  to={link.to}
-  className={`
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`
     relative font-light text-sm tracking-wide transition-colors duration-300
     ${isActive(link.to) ? "text-foreground" : "text-muted-foreground"}
     group
   `}
->
-  {link.label}
+              >
+                {link.label}
 
-  {/* Underline */}
-  <span
-    className={`
+                {/* Underline */}
+                <span
+                  className={`
       absolute left-0 -bottom-0.5 h-[2px] bg-primary transition-all duration-300
       ${isActive(link.to) ? "w-full" : "w-0 group-hover:w-full"}
     `}
-  ></span>
-</Link>
-
-
-
+                />
+              </Link>
             ))}
-          </nav> 
+          </nav>
 
-    
           {/* Mobile Menu Button */}
           <Button
             variant="ghost"
