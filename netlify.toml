@@ -1,0 +1,49 @@
+# Configuration Netlify pour Esthelys
+
+[build]
+  # Commande de build
+  command = "npm run build"
+
+  # Répertoire de publication (résultat du build Vite)
+  publish = "dist"
+
+  # Répertoire des fonctions serverless
+  functions = "netlify/functions"
+
+# Variables d'environnement pour le build
+[build.environment]
+  NODE_VERSION = "18"
+
+# Redirections pour le routing React
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers de sécurité
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Headers pour les fonctions API
+[[headers]]
+  for = "/.netlify/functions/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type"
+
+# Configuration du cache
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

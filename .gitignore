@@ -8,9 +8,23 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+server/node_modules
 dist
 dist-ssr
 *.local
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.production
+
+# Sauf .env.example et .env.production qui doivent être commités
+!.env.example
+
+
+# Netlify
+.netlify
 
 # Editor directories and files
 .vscode/*

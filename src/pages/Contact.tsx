@@ -13,8 +13,9 @@ const Contact = () => {
     phone: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Basic validation
@@ -27,14 +28,75 @@ const Contact = () => {
       return;
     }
 
-    // In a real implementation, this would send to a backend
-    toast({
-      title: "Message envoyé !",
-      description: "Nous vous recontacterons très bientôt.",
-    });
+    // Validation du numéro de téléphone
+    const phoneRegex = /^[0-9\s\-\+\(\)]{10,}$/;
+    if (!phoneRegex.test(formData.phone)) {
+      toast({
+        title: "Erreur",
+        description: "Veuillez entrer un numéro de téléphone valide",
+        variant: "destructive",
+      });
+      return;
+    }
 
-    // Reset form
-    setFormData({ name: "", phone: "", message: "" });
+    setIsSubmitting(true);
+
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL;
+
+      if (!apiUrl) {
+        throw new Error("Configuration API manquante. Veuillez démarrer le serveur backend.");
+      }
+
+      // Envoi de la requête à l'API backend
+      const response = await fetch(`${apiUrl}/contact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          message: formData.message,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Erreur lors de l'envoi du message");
+      }
+
+      toast({
+        title: "Message envoyé !",
+        description: "Nous vous recontacterons très bientôt.",
+      });
+
+      // Reset form
+      setFormData({ name: "", phone: "", message: "" });
+    } catch (error) {
+      console.error("Erreur lors de l'envoi:", error);
+
+      let errorMessage = "Une erreur s'est produite. Veuillez réessayer ou nous contacter directement par email.";
+
+      if (error instanceof Error) {
+        if (error.message.includes("Configuration")) {
+          errorMessage = "Le serveur n'est pas configuré. Veuillez contacter l'administrateur.";
+        } else if (error.message.includes("fetch")) {
+          errorMessage = "Impossible de contacter le serveur. Veuillez vérifier que le backend est démarré.";
+        } else {
+          errorMessage = error.message;
+        }
+      }
+
+      toast({
+        title: "Erreur d'envoi",
+        description: errorMessage,
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -125,9 +187,10 @@ const Contact = () => {
 
                 <Button
                   type="submit"
-                  className="w-full bg-foreground hover:bg-foreground/90 text-background font-light"
+                  disabled={isSubmitting}
+                  className="w-full bg-foreground hover:bg-foreground/90 text-background font-light disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Envoyer le Message
+                  {isSubmitting ? "Envoi en cours..." : "Envoyer le Message"}
                 </Button>
               </form>
             </CardContent>
@@ -147,7 +210,7 @@ const Contact = () => {
                   <div>
                     <h3 className="font-light mb-1">Email</h3>
                     <a
-                      href="mailto:contact@signatur.com"
+                      href="mailto:contact@esthelys.com"
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >
                       contact@esthelys.com
