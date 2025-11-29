@@ -9,8 +9,8 @@ const Header = () => {
 
   const navLinks = [
     { to: "/", label: "Accueil" },
-    { to: "/a-propos", label: "À Propos" },
-    { to: "/prestations", label: "Prestations" },
+    { to: "/a-propos", label: "L'institut" },
+    { to: "/prestations", label: "Soins & Tarifs" },
     { to: "/galerie", label: "Galerie" },
     { to: "/contact", label: "Contact" },
   ];
@@ -33,7 +33,7 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => (
               //   <Link
               //     key={link.to}
@@ -81,6 +81,14 @@ const Header = () => {
                 />
               </Link>
             ))}
+
+            {/* CTA Button */}
+            <Button
+              asChild
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-light tracking-wide"
+            >
+              <Link to="/contact">RÉSERVER MAINTENANT</Link>
+            </Button>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -112,6 +120,15 @@ const Header = () => {
                   {link.label}
                 </Link>
               ))}
+              <div className="px-4 pt-2">
+                <Button
+                  asChild
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-light tracking-wide"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Link to="/contact">RÉSERVER MAINTENANT</Link>
+                </Button>
+              </div>
             </div>
           </nav>
         )}
