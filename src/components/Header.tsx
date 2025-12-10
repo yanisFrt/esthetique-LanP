@@ -9,9 +9,8 @@ const Header = () => {
 
   const navLinks = [
     { to: "/", label: "Accueil" },
-    { to: "/a-propos", label: "L'institut" },
+    { to: "/a-propos", label: "À propos de nous" },
     { to: "/prestations", label: "Soins & Tarifs" },
-    { to: "/galerie", label: "Galerie" },
     { to: "/contact", label: "Contact" },
   ];
 

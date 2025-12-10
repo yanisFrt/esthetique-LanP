@@ -1,5 +1,10 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import OptimizedImage from "@/components/OptimizedImage";
+import beauteRegardImg from "@/assets/beaute-du-regard.png";
+import soinsVisageImg from "@/assets/soin-visage.png";
+import epilationVisageImg from "@/assets/epilation-visage.png";
+import epilationCorpsImg from "@/assets/epilation-corps.png";
 
 const Services = () => {
   const beauteRegard = [
@@ -136,12 +141,14 @@ const Services = () => {
     services,
     id,
     isBold,
+    image,
   }: {
     title: string;
     description: string;
     services: { service: string; price: string; duration?: string; description?: string }[];
     id: string;
     isBold?: boolean;
+    image?: string;
   }) => (
     <Card id={id} className="scroll-mt-24">
       <CardHeader>
@@ -153,27 +160,63 @@ const Services = () => {
         </p>
       </CardHeader>
       <CardContent>
-        <div className="space-y-3">
-          {services.map((item, index) => (
-            <div key={index}>
-              <div className="flex justify-between items-start gap-4">
-                <div className="flex-1">
-                  <span className="text-foreground">{item.service}</span>
-                  {item.duration && (
-                    <span className="text-muted-foreground text-sm ml-2">— {item.duration}</span>
-                  )}
-                  {item.description && (
-                    <p className="text-muted-foreground text-sm mt-1 leading-relaxed">{item.description}</p>
-                  )}
-                </div>
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-yellow-600 whitespace-nowrap">
-                  {item.price}
-                </span>
-              </div>
-              {index < services.length - 1 && <Separator className="mt-3" />}
+        {image ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+            {/* Image côté gauche */}
+            <div className="flex items-center justify-center bg-gray-200 rounded-lg overflow-hidden">
+              <OptimizedImage
+                src={image}
+                alt={title}
+                loading="lazy"
+                className="w-full h-full object-cover rounded-lg"
+              />
             </div>
-          ))}
-        </div>
+            {/* Services côté droit */}
+            <div className="space-y-3">
+              {services.map((item, index) => (
+                <div key={index}>
+                  <div className="flex justify-between items-start gap-4">
+                    <div className="flex-1">
+                      <span className="text-foreground">{item.service}</span>
+                      {item.duration && (
+                        <span className="text-muted-foreground text-sm ml-2">— {item.duration}</span>
+                      )}
+                      {item.description && (
+                        <p className="text-muted-foreground text-sm mt-1 leading-relaxed">{item.description}</p>
+                      )}
+                    </div>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-yellow-600 whitespace-nowrap">
+                      {item.price}
+                    </span>
+                  </div>
+                  {index < services.length - 1 && <Separator className="mt-3" />}
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {services.map((item, index) => (
+              <div key={index}>
+                <div className="flex justify-between items-start gap-4">
+                  <div className="flex-1">
+                    <span className="text-foreground">{item.service}</span>
+                    {item.duration && (
+                      <span className="text-muted-foreground text-sm ml-2">— {item.duration}</span>
+                    )}
+                    {item.description && (
+                      <p className="text-muted-foreground text-sm mt-1 leading-relaxed">{item.description}</p>
+                    )}
+                  </div>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-yellow-600 whitespace-nowrap">
+                    {item.price}
+                  </span>
+                </div>
+                {index < services.length - 1 && <Separator className="mt-3" />}
+              </div>
+            ))}
+          </div>
+        )}
       </CardContent>
     </Card>
   );
@@ -200,6 +243,7 @@ const Services = () => {
             title="Beauté du Regard"
             description="Sublimez vos sourcils avec nos techniques de pointe : microblading, shading ou combo. Des résultats naturels et durables pour un regard parfaitement structuré."
             services={beauteRegard}
+            image={beauteRegardImg}
           />
 
           <ServiceSection
@@ -207,6 +251,7 @@ const Services = () => {
             title="Soins Visage"
             description="Offrez à votre peau un éclat renouvelé avec nos soins anti-âge, hydratants et régénérants. Du microneedling aux peelings chimiques, chaque traitement est adapté à vos besoins."
             services={soinsVisage}
+            image={soinsVisageImg}
           />
 
           <ServiceSection
@@ -214,6 +259,7 @@ const Services = () => {
             title="Épilations Visage"
             description="Une épilation précise et douce pour un visage parfaitement net. Nos techniques respectent la sensibilité de votre peau."
             services={epilationsVisage}
+            image={epilationVisageImg}
           />
 
           <ServiceSection
@@ -221,6 +267,7 @@ const Services = () => {
             title="Épilations Corps"
             description="Des épilations professionnelles pour une peau douce et lisse. Forfaits avantageux disponibles."
             services={epilationsCorps}
+            image={epilationCorpsImg}
           />
 
           <ServiceSection

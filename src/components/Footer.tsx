@@ -32,7 +32,7 @@ const Footer = () => {
                   href="/a-propos"
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  À Propos
+                  À propos de nous
                 </a>
               </li>
               <li>
@@ -41,14 +41,6 @@ const Footer = () => {
                   className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   Prestations
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/galerie"
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                >
-                  Galerie
                 </a>
               </li>
               <li>

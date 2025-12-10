@@ -1,13 +1,47 @@
 import { Link } from "react-router-dom";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Eye, Sparkles, Scissors } from "lucide-react";
 import heroImage from "@/assets/hero-home.jpg";
+import sliderAccueil2 from "@/assets/slider-accueil-2.png";
+import sliderAccueil3 from "@/assets/slider-accueil-3.png";
 import beauteRegard from "@/assets/beaute-regard.jpg";
 import soinsVisage from "@/assets/soins-visage.jpg";
 import epilations from "@/assets/epilations.jpg";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import OptimizedImage from "@/components/OptimizedImage";
 
 const Home = () => {
+  const [current, setCurrent] = useState(0);
+  const [loadedSlides, setLoadedSlides] = useState<Set<number>>(new Set([0, 1]));
+  const carouselApi = useRef<any>(null);
+  const sliderImages = [heroImage, sliderAccueil2, sliderAccueil3];
+
+  const handleSlideChange = (api: any) => {
+    if (!api) return;
+    carouselApi.current = api;
+    const selected = api.selectedScrollSnap();
+    setCurrent(selected);
+
+    // Lazy load current and next slide
+    const nextSlide = (selected + 1) % sliderImages.length;
+    setLoadedSlides(new Set([selected, nextSlide]));
+
+    api.on("select", () => {
+      const newSelected = api.selectedScrollSnap();
+      setCurrent(newSelected);
+      const newNext = (newSelected + 1) % sliderImages.length;
+      setLoadedSlides(new Set([newSelected, newNext]));
+    });
+  };
+
+  const goToSlide = (index: number) => {
+    if (carouselApi.current) {
+      carouselApi.current.scrollTo(index);
+    }
+  };
   const services = [
     {
       icon: <Eye className="w-8 h-8" />,
@@ -34,29 +68,74 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
+      {/* Hero Carousel Section */}
       <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url(${heroImage})`,
-            filter: "brightness(0.7)"
+        <Carousel
+          opts={{
+            loop: true,
           }}
-        />
-        <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
-          <h1 className="font-serif text-5xl md:text-7xl font-light mb-6 tracking-wide animate-fade-in">
-            Révélez Votre Beauté Naturelle
-          </h1>
-          <p className="text-lg md:text-xl font-light mb-8 leading-relaxed max-w-2xl mx-auto">
-            Plus de 30 ans d'expertise en esthétique. Précision, douceur et bien-être au service de votre authenticité.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-foreground font-light">
-              <Link to="/prestations">Découvrir nos Prestations</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="border-white text-black hover:bg-white hover:text-foreground font-light">
-              <Link to="/contact">Nous Contacter</Link>
-            </Button>
+          plugins={[
+            Autoplay({
+              delay: 4000,
+            }),
+          ]}
+          setApi={handleSlideChange}
+          className="w-full h-full"
+        >
+          <CarouselContent className="h-[90vh]">
+            {sliderImages.map((image, index) => (
+              <CarouselItem key={index} className="h-[90vh]">
+                {loadedSlides.has(index) ? (
+                  <div
+                    className="w-full h-full flex items-center justify-center"
+                    style={{
+                      backgroundImage: `url(${image})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      filter: "brightness(0.6)",
+                    }}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-300" />
+                )}
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+
+        {/* Pagination Dots */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex gap-2">
+          {sliderImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`h-3 w-3 rounded-full transition-all cursor-pointer ${
+                index === current
+                  ? "bg-white w-8"
+                  : "bg-white/50 hover:bg-white/70"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Text Overlay */}
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <div className="text-center text-white px-4 max-w-4xl mx-auto">
+            <h1 className="font-serif text-5xl md:text-7xl font-light mb-6 tracking-wide animate-fade-in">
+              Révélez Votre Beauté Naturelle
+            </h1>
+            <p className="text-lg md:text-xl font-light mb-8 leading-relaxed max-w-2xl mx-auto">
+              Plus de 30 ans d'expertise en esthétique. Précision, douceur et bien-être au service de votre authenticité.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-foreground font-light">
+                <Link to="/prestations">Découvrir nos Prestations</Link>
+              </Button>
+              <Button asChild size="lg" variant="outline" className="border-white text-black hover:bg-white hover:text-foreground font-light">
+                <Link to="/contact">Nous Contacter</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -86,10 +165,11 @@ const Home = () => {
             {services.map((service, index) => (
               <Card key={index} className="overflow-hidden border-border hover:shadow-lg transition-shadow">
                 {service.image && (
-                  <div className="h-48 overflow-hidden">
-                    <img 
-                      src={service.image} 
+                  <div className="h-48 overflow-hidden bg-gray-200">
+                    <OptimizedImage
+                      src={service.image}
                       alt={service.title}
+                      loading="lazy"
                       className="w-full h-full object-cover"
                     />
                   </div>

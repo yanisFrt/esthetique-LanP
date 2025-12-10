@@ -13,14 +13,16 @@ dist
 dist-ssr
 *.local
 
-# Environment variables
+# Environment variables - SECRÈTE, NE JAMAIS COMMITER
 .env
 .env.local
 .env.*.local
 .env.production
+.env.production.local
 
-# Sauf .env.example et .env.production qui doivent être commités
+# Fichiers d'exemple et documentation SEULEMENT
 !.env.example
+!.env.production.example
 
 
 # Netlify

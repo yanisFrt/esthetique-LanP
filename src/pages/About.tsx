@@ -1,24 +1,104 @@
-import aboutHero from "@/assets/about-hero.jpg";
+import { useState, useRef } from "react";
+import slider1 from "@/assets/slider-1.jpg";
+import beauteRegard from "@/assets/beaute-regard.jpg";
+import soinsVisage from "@/assets/soins-visage.jpg";
+import image4 from "@/assets/image-4.png";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 const About = () => {
+  const [current, setCurrent] = useState(0);
+  const [loadedSlides, setLoadedSlides] = useState<Set<number>>(new Set([0, 1]));
+  const carouselApi = useRef<any>(null);
+  const images = [slider1, beauteRegard, soinsVisage, image4];
+
+  const handleSlideChange = (api: any) => {
+    if (!api) return;
+    carouselApi.current = api;
+    const selected = api.selectedScrollSnap();
+    setCurrent(selected);
+
+    // Lazy load current and next slide
+    const nextSlide = (selected + 1) % images.length;
+    setLoadedSlides(new Set([selected, nextSlide]));
+
+    api.on("select", () => {
+      const newSelected = api.selectedScrollSnap();
+      setCurrent(newSelected);
+      const newNext = (newSelected + 1) % images.length;
+      setLoadedSlides(new Set([newSelected, newNext]));
+    });
+  };
+
+  const goToSlide = (index: number) => {
+    if (carouselApi.current) {
+      carouselApi.current.scrollTo(index);
+    }
+  };
+
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
+      {/* Hero Section - Carousel */}
       <section className="relative h-[60vh] flex items-center justify-center overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url(${aboutHero})`,
-            filter: "brightness(0.6)",
+        <Carousel
+          opts={{
+            loop: true,
           }}
-        />
-        <div className="relative z-10 text-center text-white px-4">
-          <h1 className="font-serif text-5xl md:text-6xl font-light mb-4 tracking-wide">
-            À Propos de SIGNATŪR
-          </h1>
-          <p className="text-xl font-light">
-            Plus de 30 ans de passion et d'expertise
-          </p>
+          plugins={[
+            Autoplay({
+              delay: 4000,
+            }),
+          ]}
+          setApi={handleSlideChange}
+          className="w-full h-full"
+        >
+          <CarouselContent className="h-[60vh]">
+            {images.map((image, index) => (
+              <CarouselItem key={index} className="h-[60vh]">
+                {loadedSlides.has(index) ? (
+                  <div
+                    className="w-full h-full flex items-center justify-center"
+                    style={{
+                      backgroundImage: `url(${image})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      filter: "brightness(0.6)",
+                    }}
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gray-300" />
+                )}
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
+
+        {/* Pagination Dots */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex gap-2">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`h-3 w-3 rounded-full transition-all cursor-pointer ${
+                index === current
+                  ? "bg-white w-8"
+                  : "bg-white/50 hover:bg-white/70"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+
+        {/* Text Overlay */}
+        <div className="absolute inset-0 flex items-center justify-center z-10">
+          <div className="text-center text-white px-4">
+            <h1 className="font-serif text-5xl md:text-6xl font-light mb-4 tracking-wide">
+              À Propos de SIGNATŪR
+            </h1>
+            <p className="text-xl font-light">
+              Plus de 30 ans de passion et d'expertise
+            </p>
+          </div>
         </div>
       </section>
 
