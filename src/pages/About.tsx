@@ -1,16 +1,13 @@
 import { useState, useRef } from "react";
-import slider1 from "@/assets/slider-1.jpg";
-import beauteRegard from "@/assets/beaute-regard.jpg";
-import soinsVisage from "@/assets/soins-visage.jpg";
-import image4 from "@/assets/image-4.png";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
+import ImageLoader from "@/components/ImageLoader";
 
 const About = () => {
   const [current, setCurrent] = useState(0);
   const [loadedSlides, setLoadedSlides] = useState<Set<number>>(new Set([0, 1]));
   const carouselApi = useRef<any>(null);
-  const images = [slider1, beauteRegard, soinsVisage, image4];
+  const images = ["slider-1", "beaute-regard", "soins-visage", "image-4"];
 
   const handleSlideChange = (api: any) => {
     if (!api) return;
@@ -53,17 +50,14 @@ const About = () => {
           className="w-full h-full"
         >
           <CarouselContent className="h-[60vh]">
-            {images.map((image, index) => (
+            {images.map((baseName, index) => (
               <CarouselItem key={index} className="h-[60vh]">
                 {loadedSlides.has(index) ? (
-                  <div
-                    className="w-full h-full flex items-center justify-center"
-                    style={{
-                      backgroundImage: `url(${image})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      filter: "brightness(0.6)",
-                    }}
+                  <ImageLoader
+                    src={`${baseName}.jpg`}
+                    alt={`Slide ${index + 1}`}
+                    className="w-full h-full object-cover brightness-[0.6]"
+                    loading={index === 0 ? "eager" : "lazy"}
                   />
                 ) : (
                   <div className="w-full h-full bg-gray-300" />

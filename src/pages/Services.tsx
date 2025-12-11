@@ -1,10 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import OptimizedImage from "@/components/OptimizedImage";
-import beauteRegardImg from "@/assets/beaute-du-regard.png";
-import soinsVisageImg from "@/assets/soin-visage.png";
-import epilationVisageImg from "@/assets/epilation-visage.png";
-import epilationCorpsImg from "@/assets/epilation-corps.png";
+import ImageLoader from "@/components/ImageLoader";
 
 const Services = () => {
   const beauteRegard = [
@@ -164,10 +160,9 @@ const Services = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
             {/* Image côté gauche */}
             <div className="flex items-center justify-center bg-gray-200 rounded-lg overflow-hidden">
-              <OptimizedImage
-                src={image}
+              <ImageLoader
+                src={`${image}.jpg`}
                 alt={title}
-                loading="lazy"
                 className="w-full h-full object-cover rounded-lg"
               />
             </div>
@@ -243,7 +238,7 @@ const Services = () => {
             title="Beauté du Regard"
             description="Sublimez vos sourcils avec nos techniques de pointe : microblading, shading ou combo. Des résultats naturels et durables pour un regard parfaitement structuré."
             services={beauteRegard}
-            image={beauteRegardImg}
+            image="beaute-du-regard"
           />
 
           <ServiceSection
@@ -251,7 +246,7 @@ const Services = () => {
             title="Soins Visage"
             description="Offrez à votre peau un éclat renouvelé avec nos soins anti-âge, hydratants et régénérants. Du microneedling aux peelings chimiques, chaque traitement est adapté à vos besoins."
             services={soinsVisage}
-            image={soinsVisageImg}
+            image="soin-visage"
           />
 
           <ServiceSection
@@ -259,7 +254,7 @@ const Services = () => {
             title="Épilations Visage"
             description="Une épilation précise et douce pour un visage parfaitement net. Nos techniques respectent la sensibilité de votre peau."
             services={epilationsVisage}
-            image={epilationVisageImg}
+            image="epilation-visage"
           />
 
           <ServiceSection
@@ -267,7 +262,7 @@ const Services = () => {
             title="Épilations Corps"
             description="Des épilations professionnelles pour une peau douce et lisse. Forfaits avantageux disponibles."
             services={epilationsCorps}
-            image={epilationCorpsImg}
+            image="epilation-corps"
           />
 
           <ServiceSection

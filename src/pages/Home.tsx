@@ -3,21 +3,15 @@ import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Eye, Sparkles, Scissors } from "lucide-react";
-import heroImage from "@/assets/hero-home.jpg";
-import sliderAccueil2 from "@/assets/slider-accueil-2.png";
-import sliderAccueil3 from "@/assets/slider-accueil-3.png";
-import beauteRegard from "@/assets/beaute-regard.jpg";
-import soinsVisage from "@/assets/soins-visage.jpg";
-import epilations from "@/assets/epilations.jpg";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
-import OptimizedImage from "@/components/OptimizedImage";
+import ImageLoader from "@/components/ImageLoader";
 
 const Home = () => {
   const [current, setCurrent] = useState(0);
   const [loadedSlides, setLoadedSlides] = useState<Set<number>>(new Set([0, 1]));
   const carouselApi = useRef<any>(null);
-  const sliderImages = [heroImage, sliderAccueil2, sliderAccueil3];
+  const sliderImages = ["hero-home", "slider-accueil-2", "slider-accueil-3"];
 
   const handleSlideChange = (api: any) => {
     if (!api) return;
@@ -47,21 +41,21 @@ const Home = () => {
       icon: <Eye className="w-8 h-8" />,
       title: "Beauté du Regard",
       description: "Microblading, shading et restructuration pour sublimer vos sourcils naturellement.",
-      image: beauteRegard,
+      image: "beaute-du-regard",
       link: "/prestations#beaute-regard"
     },
     {
       icon: <Sparkles className="w-8 h-8" />,
       title: "Soins Visage",
       description: "Microneedling, peelings chimiques et soins hydratants pour une peau éclatante.",
-      image: soinsVisage,
+      image: "soin-visage",
       link: "/prestations#soins-visage"
     },
     {
       icon: <Scissors className="w-8 h-8" />,
       title: "Épilations",
       description: "Épilations précises du visage et du corps dans le respect de votre peau.",
-      image: epilations,
+      image: "epilations",
       link: "/prestations#epilations"
     }
   ];
@@ -83,17 +77,14 @@ const Home = () => {
           className="w-full h-full"
         >
           <CarouselContent className="h-[90vh]">
-            {sliderImages.map((image, index) => (
+            {sliderImages.map((baseName, index) => (
               <CarouselItem key={index} className="h-[90vh]">
                 {loadedSlides.has(index) ? (
-                  <div
-                    className="w-full h-full flex items-center justify-center"
-                    style={{
-                      backgroundImage: `url(${image})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      filter: "brightness(0.6)",
-                    }}
+                  <ImageLoader
+                    src={`${baseName}.jpg`}
+                    alt={`Slide ${index + 1}`}
+                    className="w-full h-full object-cover brightness-[0.6]"
+                    loading={index === 0 ? "eager" : "lazy"}
                   />
                 ) : (
                   <div className="w-full h-full bg-gray-300" />
@@ -166,10 +157,9 @@ const Home = () => {
               <Card key={index} className="overflow-hidden border-border hover:shadow-lg transition-shadow">
                 {service.image && (
                   <div className="h-48 overflow-hidden bg-gray-200">
-                    <OptimizedImage
-                      src={service.image}
+                    <ImageLoader
+                      src={`${service.image}.jpg`}
                       alt={service.title}
-                      loading="lazy"
                       className="w-full h-full object-cover"
                     />
                   </div>
