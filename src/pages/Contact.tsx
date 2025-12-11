@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Mail, Instagram, Video } from "lucide-react";
+import { Mail, Instagram, Video, Clock, Briefcase, Sun } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
@@ -205,7 +205,7 @@ const Contact = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
-                <div className="flex items-start gap-4">
+                {/* <div className="flex items-start gap-4">
                   <Mail className="w-6 h-6 text-primary mt-1" />
                   <div>
                     <h3 className="font-light mb-1">Email</h3>
@@ -216,19 +216,19 @@ const Contact = () => {
                       contact@esthelys.com
                     </a>
                   </div>
-                </div>
+                </div> */}
 
                 <div className="flex items-start gap-4">
                   <Instagram className="w-6 h-6 text-primary mt-1" />
                   <div>
                     <h3 className="font-light mb-1">Instagram</h3>
                     <a
-                      href="https://www.instagram.com/browlux.studio?igsh=cjJsa2Z2ZDcxand6"
+                      href="https://www.instagram.com/signatur_esthelys?igsh=MWJxNngwYmFkMmk3ZA%3D%3D&utm_source=qr"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >
-                      @browlux.studio
+                      @signatur_esthelys
                     </a>
                   </div>
                 </div>
@@ -238,7 +238,7 @@ const Contact = () => {
                   <div>
                     <h3 className="font-light mb-1">TikTok</h3>
                     <a
-                      href="https://tiktok.com/@institut_signatur"
+                      href="https://www.tiktok.com/@browluxstudio1?_r=1&_t=ZN-928ClBdznYk"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-muted-foreground hover:text-primary transition-colors"
@@ -252,15 +252,63 @@ const Contact = () => {
 
             <Card className="bg-secondary">
               <CardContent className="pt-6">
-                <h3 className="font-serif text-2xl font-light mb-4">
-                  Horaires d'Ouverture
-                </h3>
-                <p className="text-muted-foreground leading-relaxed mb-4">
-                  Les horaires seront communiqués prochainement.
-                </p>
-                {/* <p className="text-sm text-muted-foreground"> */}
-                {/* * Prise de rendez-vous en ligne bientôt disponible via Planity */}
-                {/* </p> */}
+                <div className="flex items-center gap-2 mb-6">
+                  <Clock className="w-6 h-6 text-primary" />
+                  <h3 className="font-serif text-2xl font-light">
+                    Horaires d'Ouverture
+                  </h3>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between pb-4 border-b border-border/30">
+                    <div className="flex items-center gap-3">
+                      <Clock className="w-5 h-5 text-muted-foreground/40" />
+                      <span className="font-light text-muted-foreground">Dimanche</span>
+                    </div>
+                    <span className="font-semibold text-muted-foreground">Fermé</span>
+                  </div>
+                  <div className="flex items-center justify-between pb-4 border-b border-border/30">
+                    <div className="flex items-center gap-3">
+                      <Clock className="w-5 h-5 text-muted-foreground/40" />
+                      <span className="font-light text-muted-foreground">Lundi</span>
+                    </div>
+                    <span className="font-semibold text-muted-foreground">Fermé</span>
+                  </div>
+                  <div className="flex items-center justify-between pb-4 border-b border-border/30">
+                    <div className="flex items-center gap-3">
+                      <Briefcase className="w-5 h-5 text-primary/60" />
+                      <span className="font-light">Mardi</span>
+                    </div>
+                    <span className="font-semibold text-foreground">10h00 - 19h00</span>
+                  </div>
+                  <div className="flex items-center justify-between pb-4 border-b border-border/30">
+                    <div className="flex items-center gap-3">
+                      <Briefcase className="w-5 h-5 text-primary/60" />
+                      <span className="font-light">Mercredi</span>
+                    </div>
+                    <span className="font-semibold text-foreground">10h00 - 19h00</span>
+                  </div>
+                  <div className="flex items-center justify-between pb-4 border-b border-border/30">
+                    <div className="flex items-center gap-3">
+                      <Briefcase className="w-5 h-5 text-primary/60" />
+                      <span className="font-light">Jeudi</span>
+                    </div>
+                    <span className="font-semibold text-foreground">10h00 - 19h00</span>
+                  </div>
+                  <div className="flex items-center justify-between pb-4 border-b border-border/30">
+                    <div className="flex items-center gap-3">
+                      <Briefcase className="w-5 h-5 text-primary/60" />
+                      <span className="font-light">Vendredi</span>
+                    </div>
+                    <span className="font-semibold text-foreground">10h00 - 19h00</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <Sun className="w-5 h-5 text-primary/60" />
+                      <span className="font-light">Samedi</span>
+                    </div>
+                    <span className="font-semibold text-foreground">10h00 - 19h00</span>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </div>

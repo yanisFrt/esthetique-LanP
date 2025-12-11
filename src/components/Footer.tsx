@@ -59,7 +59,7 @@ const Footer = () => {
             <h4 className="font-serif text-lg font-light mb-4">Suivez-nous</h4>
             <div className="flex gap-4 mb-4">
               <a
-                href="https://www.instagram.com/browlux.studio?igsh=cjJsa2Z2ZDcxand6"
+                href="https://www.instagram.com/signatur_esthelys?igsh=MWJxNngwYmFkMmk3ZA%3D%3D&utm_source=qr"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 border border-border rounded-full hover:bg-primary hover:border-primary transition-colors"
@@ -78,7 +78,7 @@ const Footer = () => {
               </a> */}
 
               <a
-                href="https://tiktok.com/@browluxstudio1"
+                href="https://www.tiktok.com/@browluxstudio1?_r=1&_t=ZN-928ClBdznYk"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 border border-border rounded-full hover:bg-primary hover:border-primary transition-colors"

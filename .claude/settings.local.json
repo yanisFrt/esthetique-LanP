@@ -15,7 +15,8 @@
       "Bash(npm run build:*)",
       "Bash(ls:*)",
       "Bash(file:*)",
-      "Bash(find:*)"
+      "Bash(find:*)",
+      "Bash(node test-email.js:*)"
     ],
     "deny": [],
     "ask": []
